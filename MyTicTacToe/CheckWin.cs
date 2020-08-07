@@ -5,65 +5,81 @@ namespace MyTicTacToe
 {
     class CheckWin
     {
-        public State WinChecker(Board board)
+        private States Winner { get; set; }
+        public States WinChecker(Board board)
         {
-            if (board.states[0, 0] == State.X &&
-                board.states[0, 1] == State.X &&
-                board.states[0, 2] == State.X)
+            if (CheckDiagonal1(board, States.X) ||
+                CheckDiagonal1(board, States.O) ||
+                CheckDiagonal2(board, States.X) ||
+                CheckDiagonal2(board, States.O))
             {
-                return State.X;
+                return Winner;
             }
 
-            if (board.states[0, 0] == State.O &&
-                board.states[0, 1] == State.O &&
-                board.states[0, 2] == State.O)
+            for (int i = 0; i < 3; i++)
             {
-                return State.O;
+                if (CheckHorizontal(board, States.X, i) ||
+                    CheckVertical(board, States.X, i) ||
+                    CheckVertical(board, States.O, i) ||
+                    CheckHorizontal(board, States.O, i))
+                {
+                    return Winner;
+                }
             }
 
-            if (board.states[1, 0] == State.X &&
-                board.states[1, 1] == State.X &&
-                board.states[1, 2] == State.X)
-            {
-                return State.X;
-            }
+            return States.Empty;
+        }
 
-            if (board.states[1, 0] == State.O &&
-                board.states[1, 1] == State.O &&
-                board.states[1, 2] == State.O)
+        private bool CheckHorizontal(Board board, States state, int i)
+        {
+            for (int j = 0; j < 3; j++)
             {
-                return State.O;
+                if (!board.states[i, j].Equals(state))
+                {
+                    return false;
+                }
             }
+            Winner = state;
+            return true;
+        }
 
-            if (board.states[2, 0] == State.X &&
-                board.states[2, 1] == State.X &&
-                board.states[2, 2] == State.X)
+        private bool CheckVertical(Board board, States state, int i)
+        {
+            for (int j = 0; j < 3; j++)
             {
-                return State.X;
+                if (!board.states[j, i].Equals(state))
+                {
+                    return false;
+                }
             }
+            Winner = state;
+            return true;
+        }
 
-            if (board.states[2, 0] == State.O &&
-                board.states[2, 1] == State.O &&
-                board.states[2, 2] == State.O)
+        private bool CheckDiagonal1(Board board, States state)
+        {
+            for (int j = 0; j < 3; j++)
             {
-                return State.O;
+                if (!board.states[j, j].Equals(state))
+                {
+                    return false;
+                }
             }
+            Winner = state;
+            return true;
+        }
 
-            if (board.states[0, 0] == State.X &&
-                board.states[1, 1] == State.X &&
-                board.states[2, 2] == State.X)
+        private bool CheckDiagonal2(Board board, States state)
+        {
+            for (int j = 0; j < 3; j++)
             {
-                return State.X;
+                if (!board.states[j, 2 - j].Equals(state))
+                {
+                    return false;
+                }
             }
-
-            if (board.states[0, 0] == State.O &&
-                board.states[1, 1] == State.O &&
-                board.states[2, 2] == State.O)
-            {
-                return State.O;
-            }
-
-            return State.Empty;
+            Winner = state;
+            return true;
         }
 
         public bool IsDraw(Board board)

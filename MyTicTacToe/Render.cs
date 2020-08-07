@@ -13,7 +13,7 @@ namespace MyTicTacToe
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (board.states[i, j] == State.Empty)
+                    if (board.states[i, j] == States.Empty)
                     {
                         Console.Write("|---|");
                     }

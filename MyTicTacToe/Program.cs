@@ -12,7 +12,7 @@ namespace MyTicTacToe
             Render render = new Render();
 
 
-            while (check.WinChecker(board) == State.Empty && !check.IsDraw(board))
+            while (check.WinChecker(board) == States.Empty && !check.IsDraw(board))
             {
                 render.RenderBoard(board);
                 var position = player.PickPosition();
@@ -22,7 +22,7 @@ namespace MyTicTacToe
 
             render.RenderBoard(board);
 
-            if (check.WinChecker(board) != State.Empty)
+            if (check.WinChecker(board) != States.Empty)
             {
                 Console.WriteLine($"{check.WinChecker(board)} wins!");
             }

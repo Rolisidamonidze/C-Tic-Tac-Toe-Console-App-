@@ -4,24 +4,24 @@ namespace MyTicTacToe
 {
     class Board
     {
-        public State[,] states;
-        public State Turn { get; private set; }
+        public States[,] states;
+        public States Turn { get; private set; }
 
         public Board()
         {
-            states = new State[3, 3];
-            Turn = State.X;
+            states = new States[3, 3];
+            Turn = States.X;
         }
 
-        public State GetState(Position position)
+        public States GetState(Position position)
         {
             return states[position.Column, position.Row];
         }
 
-        public bool SetState(Position position, State newState)
+        public bool SetState(Position position, States newState)
         {
             newState = Turn;
-            if (states[position.Column, position.Row] != State.Empty)
+            if (states[position.Column, position.Row] != States.Empty)
             {
                 return false;
             }
@@ -33,13 +33,13 @@ namespace MyTicTacToe
 
         private void ChangeTurn()
         {
-            if (Turn == State.X)
+            if (Turn == States.X)
             {
-                Turn = State.O;
+                Turn = States.O;
             }
             else
             {
-                Turn = State.X;
+                Turn = States.X;
             }
         }
 
